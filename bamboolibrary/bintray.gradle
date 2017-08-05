@@ -13,7 +13,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 在上传库时，Bintray 插件会寻找 POM 文件。 即使 Maven 插件为你生成了它，你也应该自己指定
  groupId 标签和 version 标签的值。 要这样做，请使用 gradle文件中的group 和version 的变量。
  */
-version = "1.0.0"
+version = rootProject.ext.android["versionName"]
 group = "com.hhit.bamboolibrary"
 
 
@@ -73,11 +73,6 @@ vcsUrl 参数，提供详细的相关信息， 如果这个包不存在，会为
 个版本相关联。 因此，pkg 必须包含一个 version 闭包，闭包的 name 属性要设为独一无二的名称。 另外，你还可以使用 desc，
 released 和 vcsTag参数来提供描述、 发布日期和 Git 标签。
 最后，为了指定应该上传的文件，要把 configuration 参数的值设为 archives。
-
-作者：黑泥卡
-链接：http://www.jianshu.com/p/1932fcfc51c8
-來源：简书
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 */
 bintray {
     user = properties.getProperty("bintray.user")
