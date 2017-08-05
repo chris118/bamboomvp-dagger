@@ -1,0 +1,138 @@
+//获取local.propertes的信息
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+/*
+第 2 步：应用插件
+打开您的库模块的 build.gradle 文件并添加以下代码，以应用我们在上一步中添加的插件。
+ */
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+/*
+第 3 步: 指定 POM 详细信息
+在上传库时，Bintray 插件会寻找 POM 文件。 即使 Maven 插件为你生成了它，你也应该自己指定
+ groupId 标签和 version 标签的值。 要这样做，请使用 gradle文件中的group 和version 的变量。
+ */
+version = "1.0.0"
+group = "com.hhit.bamboolibrary"
+
+
+def siteUrl = 'https://github.com/chris118/bamboomvp'
+def gitUrl = 'https://github.com/chris118/bamboomvp.git'
+
+
+/*第 4 步: 生成源 JAR
+为了遵守 Maven 标准，你的库也应该有一个包含了库的源文件的 JAR 文件。
+ 为了生成 JAR 文件，需要创建一个新的 Jar任务，
+ generateSourcesJar，并且使用 from 功能指定的源文件的位置。*/
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+/*
+第 5 步: 生成 Javadoc JAR
+我们同样推荐，在你的库里有一个包含 Javadocs 的 JAR 文件。
+ 因为目前你还没有任何 Javadocs，需要创建一个新的 Javadoc 任务，generateJavadocs，来生成它们。
+  使用 source 变量来指定源文件的位置。 你还应该更新 classpath 变量，以便该任务可以找到属于 Android SDK 的类。
+ 你可以通过把 android.getBootClasspath 方法的返回值添加给他，来这么做。
+ */
+task generateJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+/*下一步，要从 Javadocs 生成 JAR，需要创建 Jar 任务，generateJavadocsJar
+，并把 generateJavadocs 的 destinationDir 属性传递给它的 from 功能。
+为了确保在 generateJavadocsJar 任务只在 generateJavadocs 任务完成后才开始，
+需要添加下面的代码片段，它使用了 dependsOn 方法来决定任务的顺序：
+您的新任务应如下所示:*/
+task generateJavadocsJar(type: Jar, dependsOn: generateJavadocs) {
+    from generateJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+/*
+ *第 6 步: 引入生成的 JAR 文件
+ *为了把源和 Javadoc JAR 文件导入到 artifacts 的列表里，你应该把他们的任务的名字添加到 configuration 里，
+ * 称为 archives，artifacts 列表将被上传到 Maven 仓库。 使用下面的代码片段来完成:
+ */
+artifacts {
+    archives generateJavadocsJar
+    archives generateSourcesJar
+}
+
+/*第 7 步: 运行任务
+现在是运行我们在前几步里创建的任务的时候了。 打开 Gradle Projects 窗口，搜索名为 install 的任务。*/
+
+/*
+第 8 步: 配置 Bintray 插件
+要配置插件，你应该使用 Gradle 文件中的 bintray 闭包。 首先，使用与你的 Bintray 用户名和 API 密钥对应的 user 和 key 变量进
+行身份验证。在 Bintray，你的库会被放置在 Bintray package 里。 你应该使用 pkg 闭包里命名直观的 repo、 name、licenses 和
+vcsUrl 参数，提供详细的相关信息， 如果这个包不存在，会为你自动创建。当你将文件上传到 Bintray 时，他们会与 Bintray 包里的一
+个版本相关联。 因此，pkg 必须包含一个 version 闭包，闭包的 name 属性要设为独一无二的名称。 另外，你还可以使用 desc，
+released 和 vcsTag参数来提供描述、 发布日期和 Git 标签。
+最后，为了指定应该上传的文件，要把 configuration 参数的值设为 archives。
+
+作者：黑泥卡
+链接：http://www.jianshu.com/p/1932fcfc51c8
+來源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+*/
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    pkg {
+        repo = 'maven'
+        name = 'bamboomvp'
+        licenses = ["Apache-2.0"]
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        publish = true // 是否是公开项目。
+
+        version {
+            name = rootProject.ext.android["versionName"]
+            desc = 'a app framework with MVP architecture'
+            released = new Date()
+            vcsTag = 'v' + rootProject.ext.android["versionName"]
+        }
+    }
+    configurations = ['archives']
+}
+
+//
+//install {
+//    repositories.mavenInstaller {
+//        // This generates POM.xml with proper parameters
+//        pom {
+//            project {
+//                packaging 'aar'
+//                // Add your description here
+//                name 'bamboomvp'
+//                description 'a app framework with MVP architecture'
+//                url siteUrl
+//                // Set your license
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id 'chris118'        //填写bintray或者github的用户名
+//                        name 'chris'         //姓名，可以是中文
+//                        email 'xiaop.wang@hotmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection gitUrl
+//                    developerConnection gitUrl
+//                    url siteUrl
+//                }
+//            }
+//        }
+//    }
+//}
+
