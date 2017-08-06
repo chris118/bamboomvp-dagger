@@ -11,7 +11,8 @@ ext {
 
      version = [
                    androidSupportSdkVersion: "25.3.0",
-        ]
+                   dagger2SdkVersion       : "2.11"
+     ]
 
     dependencies = [
                 //support
@@ -22,5 +23,9 @@ ext {
                 "annotations"              : "com.android.support:support-annotations:${version["androidSupportSdkVersion"]}",
                 "recyclerview-v7"          : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
                 "constraint-layout"        : "com.android.support.constraint:constraint-layout:1.0.2",
+
+                //tools
+                "dagger2"                  : "com.google.dagger:dagger:${version["dagger2SdkVersion"]}",
+                "dagger2-compiler"         : "com.google.dagger:dagger-compiler:${version["dagger2SdkVersion"]}"
         ]
 }

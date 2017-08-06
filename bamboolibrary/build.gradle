@@ -35,6 +35,10 @@ dependencies {
 
     //support
     compile(rootProject.ext.dependencies["appcompat-v7"])
+
+    //tools
+    compile rootProject.ext.dependencies["dagger2"]
+    annotationProcessor(rootProject.ext.dependencies["dagger2-compiler"])
 }
 
 apply from: 'bintray.gradle'
