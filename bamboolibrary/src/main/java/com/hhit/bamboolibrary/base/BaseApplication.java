@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.hhit.bamboolibrary.di.AppModule.AppModule;
 import com.hhit.bamboolibrary.di.component.AppComponent;
+import com.hhit.bamboolibrary.di.component.DaggerAppComponent;
 
 /**
  * Created by xiaopeng on 2017/8/6.
@@ -11,8 +12,7 @@ import com.hhit.bamboolibrary.di.component.AppComponent;
 
 public class BaseApplication extends Application{
 
-    private Application mApplication;
-    private AppComponent mAppComponent;
+    protected AppComponent mAppComponent;
 
     @Override
     public void onCreate() {
@@ -20,9 +20,8 @@ public class BaseApplication extends Application{
 
         mAppComponent = DaggerAppComponent
                 .builder()
-                .appModule(new AppModule(mApplication))//提供application
+                .appModule(new AppModule(this))//提供application
                 .build();
-        mAppComponent.inject(this);
     }
 
     @Override
@@ -31,9 +30,6 @@ public class BaseApplication extends Application{
     }
 
     public AppComponent getAppComponent() {
-
-        this.mAppComponent = null;
-
         return mAppComponent;
     }
 }

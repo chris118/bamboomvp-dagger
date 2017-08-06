@@ -28,8 +28,9 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AppComponent appComponent = ((BaseApplication)getApplication()).getAppComponent();
-        injectComponent(appComponent);
+        Application application =  getApplication();
+//        AppComponent appComponent = application.getAppComponent();
+//        injectComponent(appComponent);
     }
 
     @Override

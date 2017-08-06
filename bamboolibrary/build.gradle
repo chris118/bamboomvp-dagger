@@ -38,7 +38,9 @@ dependencies {
 
     //tools
     compile rootProject.ext.dependencies["dagger2"]
-    annotationProcessor(rootProject.ext.dependencies["dagger2-compiler"])
+    annotationProcessor(rootProject.ext.dependencies["dagger2-compiler"]) {
+        exclude module: 'dagger'
+    }
 }
 
 apply from: 'bintray.gradle'
