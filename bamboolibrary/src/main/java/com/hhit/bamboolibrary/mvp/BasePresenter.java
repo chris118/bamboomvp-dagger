@@ -13,6 +13,7 @@ public class BasePresenter<M extends IModel, V extends IView > implements IPrese
     public BasePresenter(M model, V rootView) {
         this.mModel = model;
         this.mRootView = rootView;
+        onStart();
     }
 
     @Override

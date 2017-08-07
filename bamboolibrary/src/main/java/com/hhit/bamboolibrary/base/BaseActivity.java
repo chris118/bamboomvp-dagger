@@ -1,7 +1,5 @@
 package com.hhit.bamboolibrary.base;
 
-import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +17,7 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected final String TAG = this.getClass().getSimpleName();
 
     /**
-     * 注入Presenter: Presenter派生类的构造函数添加 @Inject 注解
+     * 注入Presenter: Presenter派生类的构造函数添加 @Inject注解 完成注入
      */
     @Inject
     protected P mPresenter;
@@ -28,9 +26,13 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Application application =  getApplication();
-//        AppComponent appComponent = application.getAppComponent();
-//        injectComponent(appComponent);
+        if(getLayoutId() != 0) {
+            setContentView(getLayoutId());
+        }
+
+        BaseApplication app =  (BaseApplication)this.getApplication();
+        AppComponent appComponent = app.getAppComponent();
+        injectComponent(appComponent);
     }
 
     @Override
@@ -43,7 +45,15 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         }
     }
 
+    /**
+     * 子类提供Layout Id
+     * @return
+     */
     protected abstract int getLayoutId();
 
+    /**
+     * 子类 初始化 依赖注入
+     * @param appComponent 把全局appComponent传送给子类
+     */
     protected abstract void injectComponent(AppComponent appComponent);
 }
