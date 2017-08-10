@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements HomeCon
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_about:
-                RWToast.showText(this, "刷新成功", true);
+                RWToast.showText(this, "mvp演示程序");
                 break;
             default:
                 break;
@@ -70,7 +70,8 @@ public class MainActivity extends BaseActivity<HomePresenter> implements HomeCon
     }
 
     /**
-     * HomeContract.View & HomeContract.Model 注入
+     * AppComponent 注入全局实例
+     * MainComponent 注入HomeContract.View & HomeContract.Model 实例
      * HomePresenter 由 BaseActivity 注入
      * @param appComponent
      */
@@ -83,7 +84,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements HomeCon
                 .build()
                 .inject(this);
 
-        Log.d(TAG, mPresenter.toString());
     }
 
     @Override
@@ -144,15 +144,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements HomeCon
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                Log.d(TAG, "lastVisibleItemPosition" + String.valueOf(lastVisibleItemPosition));
-                Log.d(TAG, "getItemCount" + String.valueOf(mAdapter.getItemCount()));
                 if (lastVisibleItemPosition + 1 == mAdapter.getItemCount()) {
-//                    boolean isRefreshing = mSwipeRefreshLayout.isRefreshing();
-//                    if (isRefreshing) {
-//                        mAdapter.notifyItemRemoved(mAdapter.getItemCount());
-//                        return;
-//                    }
-
                     if(!mLoadingMore){ //不要重复请求
                         mPresenter.requestUsers(false);
                     }
