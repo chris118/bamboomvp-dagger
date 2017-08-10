@@ -5,4 +5,8 @@ package com.hhit.bamboolibrary.mvp;
  */
 
 public interface IView {
+    void showLoading();
+    void hideLoading();
+    void showMessage(String message);
+
 }

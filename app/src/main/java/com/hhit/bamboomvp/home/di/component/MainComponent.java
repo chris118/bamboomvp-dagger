@@ -3,7 +3,7 @@ package com.hhit.bamboomvp.home.di.component;
 import com.hhit.bamboolibrary.di.component.AppComponent;
 import com.hhit.bamboolibrary.di.scope.ActivityScope;
 import com.hhit.bamboomvp.home.di.module.MainModule;
-import com.hhit.bamboomvp.home.ui.MainActivity;
+import com.hhit.bamboomvp.home.ui.activity.MainActivity;
 
 import dagger.Component;
 

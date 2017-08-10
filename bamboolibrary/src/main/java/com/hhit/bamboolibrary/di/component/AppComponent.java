@@ -3,6 +3,7 @@ package com.hhit.bamboolibrary.di.component;
 import android.app.Application;
 
 import com.hhit.bamboolibrary.di.AppModule.AppModule;
+import com.hhit.bamboolibrary.di.AppModule.HttpModule;
 import com.hhit.bamboolibrary.intermediate.IServiceManager;
 
 import javax.inject.Singleton;
@@ -16,7 +17,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class})
+@Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
     Application application();
 

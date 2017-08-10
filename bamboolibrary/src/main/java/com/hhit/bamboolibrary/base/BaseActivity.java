@@ -9,12 +9,16 @@ import com.hhit.bamboolibrary.mvp.IPresenter;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by xiaopeng on 2017/8/6.
  */
 
 public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
+    private Unbinder mUnbinder;
 
     /**
      * 注入Presenter: Presenter派生类的构造函数添加 @Inject注解 完成注入
@@ -33,6 +37,10 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
         BaseApplication app =  (BaseApplication)this.getApplication();
         AppComponent appComponent = app.getAppComponent();
         injectComponent(appComponent);
+
+        mUnbinder = ButterKnife.bind(this);
+
+        initialized();
     }
 
     @Override
@@ -43,13 +51,22 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
             mPresenter.onDestroy();
             mPresenter = null;
         }
+
+        if (mUnbinder != null && mUnbinder != Unbinder.EMPTY) {
+            mUnbinder.unbind();
+            this.mUnbinder = null;
+        }
     }
 
     /**
      * 子类提供Layout Id
-     * @return
      */
     protected abstract int getLayoutId();
+
+    /**
+     * 子类初始化数据
+     */
+    protected abstract void initialized();
 
     /**
      * 子类 初始化 依赖注入

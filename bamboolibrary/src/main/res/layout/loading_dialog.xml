@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:paddingRight="30dp"
+    android:background="@drawable/dialog_background"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_route"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/dialog"></ImageView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/detail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="正在加载"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/detail_tv"
+            android:text="..."
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>
