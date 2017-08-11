@@ -5,6 +5,11 @@ android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
@@ -58,7 +63,15 @@ dependencies {
 
     //rx
     compile rootProject.ext.dependencies["rxjava"]
-    compile(rootProject.ext.dependencies["rxandroid"])
+    compile rootProject.ext.dependencies["rxandroid"]
+    compile(rootProject.ext.dependencies["rxlifecycle"]) {
+        exclude module: 'rxjava'
+        exclude module: 'jsr305'
+    }
+    compile(rootProject.ext.dependencies["rxlifecycle-components"]){
+        exclude module: 'rxjava'
+        exclude module: 'jsr305'
+    }
 
     //network
     compile(rootProject.ext.dependencies["retrofit"]) {

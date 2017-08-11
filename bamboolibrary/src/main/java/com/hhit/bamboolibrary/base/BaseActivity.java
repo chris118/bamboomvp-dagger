@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.hhit.bamboolibrary.di.component.AppComponent;
 import com.hhit.bamboolibrary.mvp.IPresenter;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import javax.inject.Inject;
 
@@ -16,7 +17,7 @@ import butterknife.Unbinder;
  * Created by xiaopeng on 2017/8/6.
  */
 
-public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivity {
+public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder mUnbinder;
 
