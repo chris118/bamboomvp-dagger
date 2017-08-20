@@ -2,12 +2,14 @@ package com.hhit.bamboolibrary.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.hhit.bamboolibrary.di.component.AppComponent;
 import com.hhit.bamboolibrary.mvp.IPresenter;
 import com.hhit.bamboolibrary.utils.EventBusUtil;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle.components.RxFragment;
 
 import javax.inject.Inject;
 
@@ -15,10 +17,11 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by xiaopeng on 2017/8/6.
+ * Created by xiaopeng on 2017/8/20.
  */
 
-public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
+public abstract class BaseFragment <P extends IPresenter> extends RxFragment {
+
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder mUnbinder;
 
@@ -28,26 +31,28 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
     @Inject
     protected P mPresenter;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if(getLayoutId() != 0) {
-            setContentView(getLayoutId());
-        }
-
-        BaseApplication app =  (BaseApplication)this.getApplication();
-        AppComponent appComponent = app.getAppComponent();
-        injectComponent(appComponent);
-
-        mUnbinder = ButterKnife.bind(this);
-        EventBusUtil.register(this);
-
-        initialized();
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return onViewCreate(inflater, container, savedInstanceState);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        BaseApplication app =  (BaseApplication)this.getActivity().getApplication();
+        AppComponent appComponent = app.getAppComponent();
+        injectComponent(appComponent);
+
+        mUnbinder = ButterKnife.bind(this.getActivity());
+        EventBusUtil.register(this);
+        initialized();
+        onCreatedView(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
 
         if(mPresenter != null) {
@@ -64,9 +69,11 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
     }
 
     /**
-     * 子类提供Layout Id
+     * 子类实现
      */
-    protected abstract int getLayoutId();
+    protected abstract View onViewCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
+    protected abstract void onCreatedView(View view, @Nullable Bundle savedInstanceState);
+
 
     /**
      * 子类初始化数据
