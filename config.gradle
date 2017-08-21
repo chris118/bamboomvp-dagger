@@ -11,6 +11,8 @@ ext {
 
      version = [
                    androidSupportSdkVersion: "25.3.0",
+                   junitVersion            : '4.12',
+                   mockitoVersion          : '1.10.19',
                    retrofitSdkVersion      : "2.3.0",
                    okhttpSdkVersion        : "3.8.1",
                    dagger2SdkVersion       : "2.11",
@@ -20,6 +22,10 @@ ext {
      ]
 
     dependencies = [
+                //test
+                "junit"                    : "junit:junit:${version["junitVersion"]}",
+                "mockito"                  : "org.mockito:mockito-all:${version["mockitoVersion"]}",
+
                 //support
                 "appcompat-v7"             : "com.android.support:appcompat-v7:${version["androidSupportSdkVersion"]}",
                 "design"                   : "com.android.support:design:${version["androidSupportSdkVersion"]}",

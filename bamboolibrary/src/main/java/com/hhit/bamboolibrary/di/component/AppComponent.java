@@ -22,5 +22,6 @@ public interface AppComponent {
     Application application();
 
     //用于管理网络请求层,以及数据缓存层
+    // 由于ServiceManager会把HttpModule中定义的Retrofit实例带入
     IServiceManager provideServiceManager();
 }
