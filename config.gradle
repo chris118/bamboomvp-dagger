@@ -41,6 +41,8 @@ ext {
                 "gson"                     : "com.google.code.gson:gson:2.8.1",
                 "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
                 "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
+                "androideventbus"          : "org.simple:androideventbus:1.0.5.1",
+
 
                 //rx1
                 "rxandroid"                : "io.reactivex:rxandroid:1.2.1",

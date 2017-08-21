@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BambooMVP.iml" filepath="$PROJECT_DIR$/BambooMVP.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/bamboolibrary/bamboolibrary.iml" filepath="$PROJECT_DIR$/bamboolibrary/bamboolibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bamboomvp.iml" filepath="$PROJECT_DIR$/bamboomvp.iml" />
     </modules>
   </component>
 </project>
