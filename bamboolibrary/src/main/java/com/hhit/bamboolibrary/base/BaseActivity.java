@@ -20,6 +20,7 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
+    protected AppComponent mAppComponent;
     private Unbinder mUnbinder;
 
     /**
@@ -37,8 +38,8 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
         }
 
         BaseApplication app =  (BaseApplication)this.getApplication();
-        AppComponent appComponent = app.getAppComponent();
-        injectComponent(appComponent);
+        //子类可以使用
+        mAppComponent = app.getAppComponent();
 
         mUnbinder = ButterKnife.bind(this);
         EventBusUtil.register(this);
@@ -72,10 +73,4 @@ public abstract class BaseActivity<P extends IPresenter> extends RxAppCompatActi
      * 子类初始化数据
      */
     protected abstract void initialized();
-
-    /**
-     * 子类 初始化 依赖注入
-     * @param appComponent 把全局appComponent传送给子类
-     */
-    protected abstract void injectComponent(AppComponent appComponent);
 }

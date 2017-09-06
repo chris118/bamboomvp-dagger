@@ -9,8 +9,7 @@ import android.view.ViewGroup;
 import com.hhit.bamboolibrary.di.component.AppComponent;
 import com.hhit.bamboolibrary.mvp.IPresenter;
 import com.hhit.bamboolibrary.utils.EventBusUtil;
-import com.trello.rxlifecycle.components.RxFragment;
-
+import com.trello.rxlifecycle.components.support.RxFragment;
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;

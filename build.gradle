@@ -10,6 +10,8 @@ buildscript {
 
         //lambda
         classpath 'me.tatarka:gradle-retrolambda:3.6.0'
+        // butterknife
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.0'
 
         /*
         第 1 步：添加必要的插件
@@ -22,8 +24,6 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         //Gradle Bintray Plugin
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
-
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.0'
     }
 }
 

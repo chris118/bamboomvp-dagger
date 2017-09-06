@@ -42,6 +42,7 @@ ext {
                 "butterknife"              : "com.jakewharton:butterknife:${version["butterknifeSdkVersion"]}",
                 "butterknife-compiler"     : "com.jakewharton:butterknife-compiler:${version["butterknifeSdkVersion"]}",
                 "androideventbus"          : "org.simple:androideventbus:1.0.5.1",
+                "rxpermissions"            : "com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar",
 
 
                 //rx1
@@ -56,6 +57,9 @@ ext {
                 "retrofit-adapter-rxjava"  : "com.squareup.retrofit2:adapter-rxjava:${version["retrofitSdkVersion"]}",
                 "okhttp3"                  : "com.squareup.okhttp3:okhttp:${version["okhttpSdkVersion"]}",
                 "glide"                    : "com.github.bumptech.glide:glide:${version["glideVersion"]}",
-                "glide-compiler"           : "com.github.bumptech.glide:compiler:${version["glideVersion"]}"
+                "glide-compiler"           : "com.github.bumptech.glide:compiler:${version["glideVersion"]}",
+
+                //UI
+                "SmartRefreshLayout"       : "com.scwang.smartrefresh:SmartRefreshLayout:1.0.3"
         ]
 }

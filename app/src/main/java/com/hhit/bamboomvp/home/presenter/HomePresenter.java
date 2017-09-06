@@ -5,6 +5,7 @@ import com.hhit.bamboolibrary.mvp.BasePresenter;
 import com.hhit.bamboolibrary.utils.RxUtils;
 import com.hhit.bamboomvp.home.contract.HomeContract;
 import com.hhit.bamboomvp.home.model.entity.User;
+import com.hhit.bamboomvp.home.ui.adapter.PersonAdapter;
 import com.hhit.bamboomvp.home.ui.adapter.UserAdapter;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
     private static final int USERS_PER_PAGE = 10;
     private int mLastId = 1;
     private int preEndIndex;
-    private UserAdapter mAdapter;
+    private PersonAdapter mAdapter;
     private List<User> mUsers = new ArrayList<>();
 
     /**
@@ -41,7 +42,7 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
 
     public void requestUsers(final Boolean bPullRefresh ){
         if (mAdapter == null) {
-            mAdapter = new UserAdapter(mUsers);
+            mAdapter = new PersonAdapter(mUsers);
             mRootView.setAdapter(mAdapter);//设置Adapter
         }
 

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -16,11 +17,6 @@ android {
         versionCode rootProject.ext.android["versionCode"]
         versionName rootProject.ext.android["versionName"]
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        // lambda support
-        jackOptions {
-            enabled true
-        }
     }
     buildTypes {
         release {
@@ -32,24 +28,20 @@ android {
     lintOptions {
         abortOnError false
     }
-    compileOptions {
-        targetCompatibility 1.8
-        sourceCompatibility 1.8
-    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
     // Dependencies for Android unit tests
-    androidTestCompile (rootProject.ext.dependencies["junit"])
+    androidTestCompile(rootProject.ext.dependencies["junit"])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
     // Dependencies for local unit tests
-    testCompile (rootProject.ext.dependencies["junit"])
-    testCompile (rootProject.ext.dependencies["mockito"])
+    testCompile(rootProject.ext.dependencies["junit"])
+    testCompile(rootProject.ext.dependencies["mockito"])
 
 
     compile project(':bamboolibrary')
@@ -58,15 +50,20 @@ dependencies {
     compile(rootProject.ext.dependencies["appcompat-v7"])
     compile(rootProject.ext.dependencies["constraint-layout"])
     compile(rootProject.ext.dependencies["recyclerview-v7"])
+    compile(rootProject.ext.dependencies["support-v4"])
 
     //tool
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     compile(rootProject.ext.dependencies["butterknife"]) {
         exclude module: 'support-annotations'
     }
+
+    //UI
+    compile (rootProject.ext.dependencies["SmartRefreshLayout"])
+
+
     annotationProcessor(rootProject.ext.dependencies["butterknife-compiler"]) {
         exclude module: 'support-annotations'
         exclude module: 'butterknife-annotations'
     }
-
 }

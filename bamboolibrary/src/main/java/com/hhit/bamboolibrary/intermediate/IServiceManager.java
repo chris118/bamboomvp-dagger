@@ -6,4 +6,5 @@ package com.hhit.bamboolibrary.intermediate;
 
 public interface IServiceManager {
     <T> T createRetrofitService(Class<T> service);
+    <T> T createRetrofitService(Class<T> service, String base_url);
 }
